@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 
@@ -27,11 +28,14 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Serve static files in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/dist')));
+const clientDistPath = path.join(__dirname, '../client/dist');
+const clientIndexPath = path.join(clientDistPath, 'index.html');
+
+// Serve the built React app when it exists, including Railway deployments.
+if (fs.existsSync(clientIndexPath)) {
+  app.use(express.static(clientDistPath));
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    res.sendFile(clientIndexPath);
   });
 }
 
