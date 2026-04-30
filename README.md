@@ -126,4 +126,4 @@ npm run dev:client
 
 ## 🔗 Live Application
 
-- **Live URL**: [Deployed on Railway](<your-railway-url>)
+- **Live URL**: [Deployed on Railway](<https://ethara-ai-assignment-production.up.railway.app/>)
