@@ -1,0 +1,15 @@
+{
+  "name": "workpilot",
+  "version": "1.0.0",
+  "description": "Full-stack Collaborative Project Workspace built with React, Express, and MongoDB",
+  "scripts": {
+    "install:server": "cd server && npm install",
+    "install:client": "cd client && npm install",
+    "install:all": "npm run install:server && npm run install:client",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build:client": "cd client && npm run build",
+    "start": "cd server && npm start",
+    "build": "npm run install:server && npm run install:client && npm run build:client"
+  }
+}
