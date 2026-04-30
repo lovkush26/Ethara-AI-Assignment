@@ -80,25 +80,6 @@ npm run dev:client
 - Frontend: http://localhost:3000
 - Backend: http://localhost:5000
 
-## 🌐 Deployment (Railway)
-
-### Steps:
-1. Push your code to GitHub
-2. Go to [Railway](https://railway.app) and create a new project
-3. Connect your GitHub repository
-4. Add environment variables in Railway:
-   - `MONGODB_URI` — Your MongoDB Atlas connection string
-   - `JWT_SECRET` — A secure random string
-   - `NODE_ENV` — `production`
-5. Set the build command: `npm run build`
-6. Set the start command: `npm start`
-7. Railway will auto-deploy!
-
-### Important Notes:
-- The server serves the built React frontend in production mode
-- Make sure your MongoDB Atlas allows connections from `0.0.0.0/0` (all IPs)
-- The Vite proxy is only used in development
-
 ## 📋 API Endpoints
 
 ### Authentication
@@ -146,7 +127,3 @@ npm run dev:client
 ## 🔗 Live Application
 
 - **Live URL**: [Deployed on Railway](<your-railway-url>)
-- **GitHub**: [Repository](<your-github-url>)
-
-## 📝 License
-MIT
