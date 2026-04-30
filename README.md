@@ -1,129 +1,159 @@
-# 🚀 WorkPilot — Collaborative Project Workspace
+# WorkPilot
 
-A full-stack collaborative **Collaborative Project Management** web application where users can create/join projects, assign tasks, and track progress. Built as a simplified version of tools like Trello or Asana.
+WorkPilot is a full-stack project workspace for managing teams, projects, tasks, and notifications. It uses a React frontend, an Express API, and MongoDB for data storage.
 
-## 📸 Features
+## Stack
 
-- **User Authentication** — Signup & Login with JWT-based secure auth
-- **Project Management** — Create projects, manage teams (Admin/Member roles)
-- **Task Management** — Create, assign, and track tasks with Kanban board
-- **Dashboard** — Overview with stats: total tasks, by status, by priority, per user, overdue tasks
-- **Role-Based Access** — Admins manage everything; Members update their assigned tasks
+- Frontend: React + Vite
+- Backend: Node.js + Express
+- Database: MongoDB Atlas + Mongoose
+- Auth: JWT
+- Deployment: Railway
 
-## 🛠️ Tech Stack
+## Features
 
-| Layer      | Technology             |
-|------------|------------------------|
-| Frontend   | React 18 + Vite        |
-| Styling    | Vanilla CSS (Dark UI)  |
-| Backend    | Node.js + Express      |
-| Database   | MongoDB + Mongoose     |
-| Auth       | JWT + bcrypt           |
-| Deployment | Railway                |
+- User registration and login
+- Project creation and member management
+- Task assignment and status tracking
+- Dashboard statistics
+- Notification system for assignments, removals, completions, and updates
 
-## 📁 Project Structure
+## Project Structure
 
-```
-├── client/                 # React Frontend (Vite)
-│   ├── src/
-│   │   ├── components/     # Layout, reusable components
-│   │   ├── pages/          # Dashboard, Projects, ProjectDetail, Login, Register
-│   │   ├── context/        # AuthContext (JWT token management)
-│   │   └── services/       # Axios API service layer
-│   └── index.html
-├── server/                 # Express Backend
-│   ├── models/             # User, Project, Task (Mongoose schemas)
-│   ├── routes/             # Auth, Project, Task routes
-│   ├── controllers/        # Business logic
-│   ├── middleware/          # JWT auth middleware
-│   └── server.js           # Entry point
-├── package.json            # Root scripts
-└── README.md
+```text
+client/   React app
+server/   Express API
 ```
 
-## 🚀 Setup & Installation
+## Prerequisites
 
-### Prerequisites
-- Node.js v18+
-- MongoDB Atlas account (or local MongoDB)
-- Git
+- Node.js 18 or newer
+- npm
+- MongoDB Atlas database
 
-### 1. Clone the Repository
+## Local Setup
+
+1. Clone the repository and move into the project folder.
+
 ```bash
 git clone <your-repo-url>
 cd workpilot
 ```
 
-### 2. Install Dependencies
+2. Install dependencies.
+
 ```bash
 npm run install:all
 ```
 
-### 3. Configure Environment Variables
-Create `server/.env`:
+3. Create or update `server/.env`.
+
 ```env
 PORT=5000
-MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/workpilot?retryWrites=true&w=majority
-JWT_SECRET=your_super_secret_key_here
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_secure_secret
 NODE_ENV=development
 ```
 
-### 4. Run in Development Mode
-In two terminal windows:
-```bash
-# Terminal 1 — Backend
-npm run dev:server
+4. Start the backend.
 
-# Terminal 2 — Frontend
+```bash
+npm run dev:server
+```
+
+5. In a second terminal, start the frontend.
+
+```bash
 npm run dev:client
 ```
-- Frontend: http://localhost:3000
-- Backend: http://localhost:5000
 
-## 📋 API Endpoints
+## Local URLs
 
-### Authentication
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/register` | Register new user |
-| POST | `/api/auth/login` | Login user |
-| GET | `/api/auth/me` | Get current user |
-| GET | `/api/auth/users` | Search users |
+- Frontend: `http://localhost:3000`
+- Backend API: `http://localhost:5000`
+- Health check: `http://localhost:5000/api/health`
 
-### Projects
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/projects` | Create project |
-| GET | `/api/projects` | List user's projects |
-| GET | `/api/projects/:id` | Get project details |
-| PUT | `/api/projects/:id` | Update project (Admin) |
-| DELETE | `/api/projects/:id` | Delete project (Admin) |
-| POST | `/api/projects/:id/members` | Add member (Admin) |
-| DELETE | `/api/projects/:id/members/:userId` | Remove member (Admin) |
+## Important Local Note
 
-### Tasks
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/tasks` | Create task |
-| GET | `/api/tasks/project/:projectId` | Get project tasks |
-| GET | `/api/tasks/:id` | Get single task |
-| PUT | `/api/tasks/:id` | Update task |
-| DELETE | `/api/tasks/:id` | Delete task (Admin) |
-| GET | `/api/tasks/dashboard/stats` | Dashboard statistics |
+If the backend says `Port 5000 is already in use`, another Node process is already running on that port. Stop the old process or change `PORT` in `server/.env`. If you change the backend port, also update the proxy target in [vite.config.js](/c:/Users/Lovkush/OneDrive/Desktop/Ethara Assignment/client/vite.config.js:8).
 
-## 👥 Role-Based Access
+## Available Scripts
 
-| Feature | Admin | Member |
-|---------|-------|--------|
-| Create/Delete projects | ✅ | ❌ |
-| Add/Remove members | ✅ | ❌ |
-| Create tasks | ✅ | ✅ |
-| Assign tasks | ✅ | ❌ |
-| Edit all task fields | ✅ | ❌ |
-| Update task status | ✅ | ✅ (own tasks) |
-| Delete tasks | ✅ | ❌ |
-| View dashboard | ✅ | ✅ |
+From the project root:
 
-## 🔗 Live Application
+- `npm run install:all` installs client and server packages
+- `npm run dev:server` starts the backend with nodemon
+- `npm run dev:client` starts the Vite frontend
+- `npm run build` installs dependencies and builds the frontend
+- `npm start` starts the backend from the root
 
-- **Live URL**: [Deployed on Railway](<https://ethara-ai-assignment-production.up.railway.app/>)
+## Railway Deployment
+
+This project is meant to be deployed as a single Railway service from the project root.
+
+### 1. Push the code to GitHub
+
+Commit your latest changes and push the repository to GitHub.
+
+### 2. Create a Railway project
+
+1. Open Railway.
+2. Create a new project.
+3. Choose `Deploy from GitHub repo`.
+4. Select this repository.
+
+### 3. Set Railway variables
+
+In the Railway service, add these environment variables:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_secure_secret
+NODE_ENV=production
+```
+
+You usually do not need to set `PORT` on Railway. Railway provides it automatically.
+
+### 4. Build and start commands
+
+Use these values if Railway does not detect them automatically:
+
+- Build command: `npm run build`
+- Start command: `npm start`
+
+### 5. MongoDB Atlas access
+
+In MongoDB Atlas:
+
+1. Open `Network Access`
+2. Add IP address `0.0.0.0/0`
+
+This allows Railway to connect to your cluster.
+
+### 6. Generate a public domain
+
+After the service is deployed:
+
+1. Open the Railway service
+2. Go to `Networking`
+3. Generate a public domain
+
+## Deployment Notes
+
+- The Express server serves the built React app from `client/dist` when that build exists.
+- The backend checks for required environment variables before startup.
+- The API health endpoint is available at `/api/health`.
+
+## Troubleshooting
+
+- `MongoDB connection error`: check `MONGODB_URI` in `server/.env` or Railway Variables.
+- `Missing required environment variable(s)`: add the missing keys to `server/.env` or Railway Variables.
+- `Port 5000 is already in use`: stop the existing process or change the backend port.
+- Frontend cannot reach API locally: confirm the backend is running and the Vite proxy target matches the backend port.
+
+## API Overview
+
+- Auth: `/api/auth`
+- Projects: `/api/projects`
+- Tasks: `/api/tasks`
+- Notifications: `/api/notifications`
